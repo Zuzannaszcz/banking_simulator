@@ -28,3 +28,29 @@
 #
 #Delete these comments before commit!
 #Good luck.
+
+class Student:
+    def __init__(self,name, classes, attendance, scores):
+        self.name = name
+        self.classes = classes
+        self.attendance = attendance
+        self.scores = scores
+
+class Class:
+    def __init__(self, name, students, attendance, scores):
+        self.name = name
+        self.students = students
+        self.attendance = attendance
+        self.scores = scores
+
+    def average_score(self, student):
+        average = (sum(self.scores[s])/len(self.scores[s]) for s in students if s == student)
+        return
+
+
+class GradeBook:
+    def __init__(self, students,):
+        self.students = students
+
+    def average_score(self, student):
+        average =
