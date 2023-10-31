@@ -59,6 +59,8 @@ class GradeBook:
     def average_score(self, student):
         pass
 
-A =
+"""
+A = 
 GB = GradeBook(["A", "B", "C"])
 C1 = Class("C1", ["A","B"], )
+"""
