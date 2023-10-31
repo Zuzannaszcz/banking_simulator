@@ -44,13 +44,21 @@ class Class:
         self.scores = scores
 
     def average_score(self, student):
-        average = (sum(self.scores[s])/len(self.scores[s]) for s in students if s == student)
-        return
+        student_index = self.students.index(student)
+        average = (sum(self.scores[student_index])/len(self.scores[student_index]) for s in self.students if s == self.student)
+        return average
+
+
 
 
 class GradeBook:
-    def __init__(self, students,):
+    def __init__(self, students, classes):
         self.students = students
+        self.classes = classes
 
     def average_score(self, student):
-        average =
+        pass
+
+A =
+GB = GradeBook(["A", "B", "C"])
+C1 = Class("C1", ["A","B"], )
