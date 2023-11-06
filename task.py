@@ -22,6 +22,7 @@ logger1.addHandler(stream)
 
 class Account:
     accounts_created = itertools.count(start=1, step=1)
+
     def __init__(self, bank, owner, money):
         self.bank = bank
         self.owner = owner
@@ -70,8 +71,6 @@ class Person:
     def save_to_file(self):
         with open('clients.txt', 'a') as file:
             file.write('\n{} {}'.format(self.name, self.money_at_hand))
-
-
 
 
 class Bank:
@@ -158,7 +157,6 @@ def people_from_data(clients):
     for client in clients:
         client = client.split()
         client[0] = Person(client[0], int(client[1]), [])
-
 
 
 if __name__ == "__main__":
