@@ -1,6 +1,8 @@
 import itertools
 import logging
 import gc
+import random
+import threading
 
 
 logger1 = logging.getLogger('logger1')
@@ -53,7 +55,6 @@ class Person:
                               .format(self.name, money, selected_account.money))
         else:
             logger1.error('{} money withdrawal: wrong account number'.format( self.name) )
-
     def deposit(self, money, account_number):
         if any(account_number == ac.number for ac in self.accounts):
             if money <= self.money_at_hand:
@@ -69,6 +70,8 @@ class Person:
     def save_to_file(self):
         with open('clients.txt', 'a') as file:
             file.write('\n{} {}'.format(self.name, self.money_at_hand))
+
+
 
 
 class Bank:
@@ -128,18 +131,49 @@ class Bank:
             return pushy_text
         return wrapper
 
+def generate_clients_data(people_number):
+    names = ['Ann', 'Mark', 'Tom', 'Jane', 'Tina', 'Julia', 'Victoria']
+    money = ['100', '200', '300', '345', '500', '50']
+    people_list = []
+    i = 1
+    while i <= people_number:
+        next_person = random.choice(names) + " " + random.choice(money)
+        if all(next_person != p for p in people_list):
+            people_list.append(next_person)
+            i += 1
+        else:
+            continue
+    logger1.debug('clients data generated: {}'.format(people_list))
+    return people_list
 
-if __name__ == "__main__":
-
-#trial run
-    with open('clients.txt', 'r') as file:
+def clients_data_from_file(file_name):
+    with open(file_name, 'r') as file:
         clients = file.readlines()
     for client in clients:
         clients[clients.index(client)] = client.replace('\n','')
-    logger1.debug('{} clients data uploaded'.format(len(clients)))
+    logger1.debug('{} clients data uploaded:{}'.format(len(clients), clients))
+    return clients
+
+def people_from_data(clients):
     for client in clients:
         client = client.split()
         client[0] = Person(client[0], int(client[1]), [])
+
+
+
+if __name__ == "__main__":
+
+    #tial run:
+    clients_generated = generate_clients_data(3)
+    clients_uploaded = clients_data_from_file('clients.txt')
+
+    t1 = threading.Thread(target=people_from_data, args=(clients_generated,))
+    t2 = threading.Thread(target=people_from_data, args=(clients_uploaded,))
+    t1.start()
+    t2.start()
+    t1.join()
+    t2.join()
+
 
     b1 = Bank('b1', [])
     b2 = Bank('b2', [])
@@ -173,4 +207,3 @@ if __name__ == "__main__":
     logger1.info(b2.advertising_slogan1())
     pushy_ad = b2.pushy(b2.advertising_slogan2)
     logger1.info(pushy_ad())
-
