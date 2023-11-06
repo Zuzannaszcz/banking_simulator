@@ -56,6 +56,7 @@ class Person:
                               .format(self.name, money, selected_account.money))
         else:
             logger1.error('{} money withdrawal: wrong account number'.format( self.name) )
+            
     def deposit(self, money, account_number):
         if any(account_number == ac.number for ac in self.accounts):
             if money <= self.money_at_hand:
