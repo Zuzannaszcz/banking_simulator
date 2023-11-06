@@ -139,7 +139,7 @@ if __name__ == "__main__":
     logger1.debug('{} clients data uploaded'.format(len(clients)))
     for client in clients:
         client = client.split()
-        client[0] = Person(client[0], client[1], [])
+        client[0] = Person(client[0], int(client[1]), [])
 
     b1 = Bank('b1', [])
     b2 = Bank('b2', [])
